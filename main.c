@@ -1045,8 +1045,10 @@ void acx_op_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control,
 }
 
 int acx_op_hw_scan(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
-                   struct cfg80211_scan_request *req)
+                   struct ieee80211_scan_request *scan_req)
 {
+	struct cfg80211_scan_request *req = &(scan_req->req);
+
 	acx_device_t *adev = hw2adev(hw);
 	struct sk_buff *skb;
 	size_t ssid_len = 0;
@@ -1082,7 +1084,7 @@ int acx_op_hw_scan(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 		goto out;
 	}
 #else
-	skb = ieee80211_probereq_get(adev->hw, adev->vif, ssid, ssid_len,
+	skb = ieee80211_probereq_get(adev->hw, adev->vif->addr, ssid, ssid_len,
 		req->ie_len);
 	if (!skb) {
 		ret = -ENOMEM;
