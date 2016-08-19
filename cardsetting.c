@@ -159,7 +159,7 @@ int acx_set_channel(acx_device_t *adev, u8 channel, int freq)
 	int res = 0;
 
 	adev->rx_status.freq = freq;
-	adev->rx_status.band = IEEE80211_BAND_2GHZ;
+	adev->rx_status.band = NL80211_BAND_2GHZ;
 
 	adev->channel = channel;
 
